@@ -75,4 +75,4 @@ def handle_params(params=''):
     return {'question':question,'symptoms': symptoms_question,'results':results}
 
 
-handle_params({'symptoms':'HP:0000256'})
+#handle_params({'symptoms':'HP:0000256'})
