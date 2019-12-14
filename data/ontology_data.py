@@ -19,9 +19,3 @@ def get_def_from_id(id):
 
 def get_symptom_by_id(id):
     return graph._node[id]
-
-def main():    
-    
-
-if __name__== "__main__":
-  main()
