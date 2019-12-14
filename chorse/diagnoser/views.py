@@ -1,15 +1,20 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-
+from api.request_handler import handle_params
 
 def index(request):
     return HttpResponse("Hello, world. You're at the polls index.")
 
-question_text='duck'
-sintomas_text='duck2'
-results_text='duck3'
+text_response= {
+    question='default_question_text',
+    symptoms='default_symptoms_text',
+    results='default_results_text'
+}
 
 def default(request):
+    symptom_ids = '' if request.GET.get('symptoms') is None else request.GET.get('symptoms')
+    params['symptoms'] = symptom_ids
+    text_response = handle_params(params)
     return HttpResponse(
     f"""<!DOCTYPE html>
 
@@ -28,19 +33,19 @@ def default(request):
       <body>
         <div>
             <h1>question</h1>
-            <p>{question_text}</p>
+            <p>{text_response['question']}</p>
 
         </div>
         <hr>
         <div>
             <h1>sintomas</h1>
-                        <p>{sintomas_text}</p>
+                        <p>{text_response['symptoms']}</p>
 
         </div>
         <hr>
         <div>
             <h1>results</h1>
-            <p>{results_text}</p>
+            <p>{text_response['results']}</p>
 
         </div>
         <hr>
