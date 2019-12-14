@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+
+  <html lang="en">
+    <head>
+      <meta charset="utf-8">
+      <meta name="description" content="The HTML5 Herald">
+      <meta name="author" content="Cargols">
+
+      <title>Django con Bootstrap 4 </title>
+
+    	  {# Cargamos la librería #}
+  	    {% load bootstrap4 %}
+
+  	    {# CSS Bootstrap #}
+  	    {% bootstrap_css %}
+
+
+    </head>
+    <body style="background-image: url('http://thepatternlibrary.com/img/ao.gif');">
+
+      <div class="container bg-white text-black" style="background-image:none">
+        <h1 class="display-1"> Chorse  <small>beta</small></h1>
+        <div class="row">
+
+          <div class="col">
+            <div class="">
+                <h1>question</h1>
+                <p>{{ question.symptom_id }}</p>
+                <br><br><br><br><br><br><br>
+            </div>
+
+            <div class="">
+                <h1>sintomas</h1>
+                <p>{{ symptoms }}</p>
+                <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+            </div>
+
+          </div>
+
+          <div class="col">
+              <h1>results</h1>
+              <p>{{ results }} </p>
+              <br><br><br><br><br><br><br>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <footer class="page-footer font-small blue pt-4" style="background-color:#618685">
+
+        <div class="container-fluid job text-center text-md-left">
+
+          <div class="row">
+
+            <div class="col-md-6 mt-md-0 mt-3 ">
+              <h5 class="text-uppercase">Repte Diagnòstic Rapid</h5>
+              <p>Objectiu Diagnòstic Ràpid</p>
+            </div>
+
+            <hr class="clearfix w-100 d-md-none pb-3 ">
+
+            <div class="col-md-3 mb-md-0 mb-3 ">
+              <h5 class="text-uppercase">Cosas 1</h5>
+            </div>
+
+            <div class="col-md-3 mb-md-0 mb-3 ">
+              <h5 class="text-uppercase">Cosas 2</h5>
+            </div>
+
+          </div>
+
+        </div>
+
+      </footer>
+
+      {% bootstrap_javascript jquery='full' %}
+    </body>
+  </html>

@@ -30,9 +30,9 @@ def get_results(ids):
 def handle_params(params=''):
     if params['symptoms']== '':
         return {
-            question:{'symptom_id':'HP:0000256','def':'sample_text','name':'sample_text','synonyms':[],similar_symptoms:[]},
-            symptoms:[{'symptom_id':'HP:0000256','def':'sample_text','name':'sample_text','synonyms':[],similar_symptoms:[]}],
-            results:{'symptom_id':'HP:0000256','def':'sample_text','name':'sample_text','synonyms':[],similar_symptoms:[]}
+            "question":{'symptom_id':'HP:0000256','def':'sample_text','name':'sample_text','synonyms':[],"similar_symptoms":[]},
+            "symptoms":[{'symptom_id':'HP:0000256','def':'sample_text','name':'sample_text','synonyms':[],"similar_symptoms":[]}],
+            "results":{'symptom_id':'HP:0000256','def':'sample_text','name':'sample_text','synonyms':[],"similar_symptoms":[]}
         }
     symptom_ids = params['symptoms'].split(',')
     question = get_question(symptom_ids)
