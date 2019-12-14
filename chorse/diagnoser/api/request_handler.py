@@ -7,38 +7,72 @@ from diagnoser.data.ontology_data import get_symptom_by_id
 #def get_symptom_by_id(id):
 #    return {'def': '"With the eyes in primary position, the sclera is visible above the superior corneal limbus." [https://www.aao.org/bcscsnippetdetail.aspx?id=03ad3eb3-3445-4be2-9470-2c4845169b75, PMID:8719687]', 'property_value': ['http://purl.org/dc/elements/1.1/date 2018-02-05T16:22:49Z xsd:dateTime'], 'name': 'Eyelid retraction', 'is_a': ['HP:0000492'], 'created_by': 'ORCID:0000-0001-7941-2961'}
 
-def get_question(ids):
+frequency_score ={
+    'Occasional (29-5%)':1,
+    'Frequent (79-30%)':3,
+    'Very frequent (99-80%)':5
+}
+
+def get_question(symptoms):
+
     return {}
 
-def get_symptoms(symptom_ids):
-    symptoms= []
-    for id in symptom_ids:
-        cur_symptom = get_symptom_by_id(id)
+def get_symptoms(symptoms):
+    symptoms_answer = []
+    for symptom in symptoms:
         id2id_name = lambda x : {'symptom_id':x , 'name':get_symptom_by_id(x)['name']}
         symptoms.append({
             'symptom_id': id,
-            'def':cur_symptom['def'],
-            'name':cur_symptom['name'],
-            'synonyms':cur_symptom['synonym'],
-            'similar_symptoms':list(map(id2id_name,cur_symptom['is_a']))
+            'def':symptom['def'],
+            'name':symptom['name'],
+            'synonyms':symptom['synonym'],
+            'similar_symptoms':list(map(id2id_name,symptom['is_a']))
         })
     return symptoms
 
-def get_results(ids):
-    return {}
+
+def distance_disorder_symptoms(disorder,symptoms):
+    distance = 0
+    for i in symptoms:
+        match = False
+        for j in disorder:
+            if i['symptom_id'] == j['HPOId']:
+                distance += 5 - frequency_score[j['Freq']]
+                match = True
+        if match == False:
+            return -1
+    return distance
+
+def get_results(symptoms):
+    disorders = get_disorder_oncology_dict()
+    disorder_distance = []
+    for key in disorders.keys():
+        distance = distance_disorder_symptoms(disorders[key],symptoms)
+        if distance > 0 :
+            disorder_distance.append([key,distance])
+    disorder_distance = sorted(disorder_distance,lambda x : x[1])
+    results = []
+    for (i,j) in disorder_distance:
+        results.append([i,j,disorder[i]])
+    return results
 
 def handle_params(params=''):
     if params['symptoms']== '':
         return {
             "question":{'symptom_id':'HP:0000256','def':'sample_text','name':'sample_text','synonyms':[],"similar_symptoms":[]},
-            "symptoms":[{'symptom_id':'HP:0000256','def':'sample_text','name':'sample_text','synonyms':[],"similar_symptoms":[]}],
-            "results":{'symptom_id':'HP:0000256','def':'sample_text','name':'sample_text','synonyms':[],"similar_symptoms":[]}
+            "symptoms":[],
+            "results":{}
         }
     symptom_ids = params['symptoms'].split(',')
-    question = get_question(symptom_ids)
-    symptoms = get_symptoms(symptom_ids)
-    results = get_results(symptom_ids)
-    return {'question':question,'symptoms': symptoms,'results':results}
+    symptoms = []
+    for id in symptom_ids:
+        temp = get_symptom_by_id(id)
+        symptoms.append(temp)
+        symptoms['symptom_id'] = id
+    question = get_question(symptoms)
+    symptoms_question = get_symptoms(symptoms)
+    results = get_results(symptoms)
+    return {'question':question,'symptoms': symptoms_question,'results':results}
 
 
 handle_params({'symptoms':'HP:0000256'})
