@@ -1,20 +1,39 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from api.request_handler import handle_params
+from diagnoser.api.request_handler import handle_params
+
+class Question():
+    #symptom_id: models.TextField()
+    #symptom_def: models.TextField()
+    #name = models.CharField(max_length=200)
+    #synonyms = []
+
+    def __init__(self, symptom_id, symptom_def, name):
+        self.symptom_id = symptom_id
+        self.symptom_def = symptom_def
+        self.name = name
+        self.synonyms = []
+
+    def add_synonym(self, synonym):
+        self.synonyms.append(synonym)
+
+
 
 def index(request):
-    return HttpResponse("Hello, world. You're at the polls index.")
+    symptom_ids = '' if request.GET.get('symptoms') is None else request.GET.get('symptoms')
+    params = { 'symptoms' : symptom_ids }
+    context = handle_params(params)
 
-text_response= {
-    question='default_question_text',
-    symptoms='default_symptoms_text',
-    results='default_results_text'
-}
+    #quest =  Question("1", "def", "nombre")
+    #context = {}
+
+    return render(request,'index.html', context)
+
+
 
 def default(request):
-    symptom_ids = '' if request.GET.get('symptoms') is None else request.GET.get('symptoms')
-    params['symptoms'] = symptom_ids
-    text_response = handle_params(params)
+    return HttpResponse("default Page")
+
     return HttpResponse(
     f"""<!DOCTYPE html>
 
