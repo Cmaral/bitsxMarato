@@ -26,7 +26,7 @@ def index(request):
 
     #quest =  Question("1", "def", "nombre")
     #context = {}
-    return HttpResponse(context)
+    #return HttpResponse(context)
 
     return render(request,'index.html', context)
 

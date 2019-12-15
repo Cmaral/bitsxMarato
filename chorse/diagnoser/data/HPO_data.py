@@ -1,6 +1,6 @@
 import xml.etree.ElementTree as ET
 
-tree = ET.parse('ontology.xml')
+tree = ET.parse('diagnoser/data/ontology.xml')
 root = tree.getroot()
 print (root)
 
