@@ -1,6 +1,6 @@
 import xml.etree.ElementTree as ET
 
-tree = ET.parse('onthology.xml')
+tree = ET.parse('ontology.xml')
 root = tree.getroot()
 print (root)
 
@@ -22,7 +22,5 @@ for Disorder in root.iter('Disorder'):
 
         d[disorderName].append({'HPOId':HPOId, 'Freq':Freq})
 
-
-for x in d:
-    print (d)
-
+def get_disorder_oncology_dict():
+    return d
