@@ -25,5 +25,5 @@ def get_successors(id):
     result = []
     for x in succs:
         result.append(x)
-    print (result)
-    
+    return result
+
