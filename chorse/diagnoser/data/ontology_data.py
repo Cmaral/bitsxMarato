@@ -19,3 +19,6 @@ def get_def_from_id(id):
 
 def get_symptom_by_id(id):
     return graph._node[id]
+
+def get_successors(id):
+    return graph._succ[id]
