@@ -1,5 +1,6 @@
 
 from diagnoser.data.ontology_data import get_symptom_by_id
+from diagnoser.data.ontology_data import get_predecessors_by_id
 from diagnoser.data.HPO_data import get_disorder_oncology_dict
 
 
@@ -17,8 +18,13 @@ frequency_score ={
 }
 
 def get_question(symptoms):
-
-    return {}
+    #disorders = get_disorder_oncology_dict()
+    symptoms_question = []
+    id2id_name = lambda x : {'symptom_id':x , 'name':get_symptom_by_id(x)['name']}
+    for i in symptoms:
+        predec = get_predecessors_by_id(i['symptom_id'])
+        symptoms_question += list(map(predec))
+    return symptoms_question
 
 def get_symptoms(symptoms):
     symptoms_answer = []
