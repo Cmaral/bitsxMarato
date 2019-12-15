@@ -21,4 +21,8 @@ def get_symptom_by_id(id):
     return graph._node[id]
 
 def get_successors(id):
-    return graph._succ[id]
+    succs = graph._succ[id]
+    result = []
+    for x in succs:
+        result.append(x)
+    print (result)
