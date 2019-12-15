@@ -1,5 +1,6 @@
 
 from diagnoser.data.ontology_data import get_symptom_by_id
+from diagnoser.data.HPO_data import get_disorder_oncology_dict
 
 
 
@@ -19,25 +20,27 @@ def get_question(symptoms):
 
 def get_symptoms(symptoms):
     symptoms_answer = []
+    print(f"symptoms :{symptoms}")
+    id2id_name = lambda x : {'symptom_id':x , 'name':get_symptom_by_id(x)['name']}
     for symptom in symptoms:
-        id2id_name = lambda x : {'symptom_id':x , 'name':get_symptom_by_id(x)['name']}
-        symptoms.append({
+        print(f"symptom :{symptom}")
+        symptoms_answer.append({
             'symptom_id': id,
             'def':symptom['def'],
             'name':symptom['name'],
-            'synonyms':symptom['synonym'],
-            'similar_symptoms':list(map(id2id_name,symptom['is_a']))
+            'synonyms':symptom['synonym'] if 'synonym' in symptom else symptom['synonyms'],
+            'similar_symptoms':list(map(id2id_name,symptom['is_a'])) if 'is_a' in symptom else None
         })
-    return symptoms
+    return symptoms_answer
 
 
 def distance_disorder_symptoms(disorder,symptoms):
     distance = 0
     for i in symptoms:
         match = False
-        for j in disorder:
-            if i['symptom_id'] == j['HPOId']:
-                distance += 5 - frequency_score[j['Freq']]
+        for key in disorder.keys():
+            if i['symptom_id'] == key:
+                distance += 5 - frequency_score[disorder[key]]
                 match = True
         if match == False:
             return -1
@@ -66,9 +69,9 @@ def handle_params(params=''):
     symptom_ids = params['symptoms'].split(',')
     symptoms = []
     for id in symptom_ids:
-        temp = get_symptom_by_id(id)
-        symptoms.append(temp)
-        symptoms['symptom_id'] = id
+        print(f"id {id}")
+        symptoms.append(get_symptom_by_id(id))
+        symptoms[-1]['symptom_id'] = id
     question = get_question(symptoms)
     symptoms_question = get_symptoms(symptoms)
     results = get_results(symptoms)
