@@ -8,7 +8,7 @@ d = {}
 
 for Disorder in root.iter('Disorder'):
     disorderName = (Disorder.find('Name')).text
-    d[disorderName] = []
+    d[disorderName] = {}
 
     for DisorderAssociation in Disorder.iter('HPODisorderAssociation'):
         HPO = DisorderAssociation.find('HPO')
@@ -20,7 +20,7 @@ for Disorder in root.iter('Disorder'):
         #print (Freq.find('Name').text)
         Freq = Freq.find('Name').text
 
-        d[disorderName].append({'HPOId':HPOId, 'Freq':Freq})
+        d[disorderName][HPOId]  = Freq
 
 def get_disorder_oncology_dict():
     return d
