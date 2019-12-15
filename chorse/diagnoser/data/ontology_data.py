@@ -25,6 +25,7 @@ def get_successors(id):
     result = []
     for x in succs:
         result.append(x)
+<<<<<<< HEAD
     return (result)
 
 def reverse_graph():
@@ -66,3 +67,6 @@ def main():
 
 if __name__== "__main__":
   main()
+=======
+    return result
+>>>>>>> e32e8f70500dfbbadfb8baedd8018d3b74b1d976
