@@ -9,7 +9,7 @@ from diagnoser.data.HPO_data import get_disorder_oncology_dict
 #    return {'def': '"With the eyes in primary position, the sclera is visible above the superior corneal limbus." [https://www.aao.org/bcscsnippetdetail.aspx?id=03ad3eb3-3445-4be2-9470-2c4845169b75, PMID:8719687]', 'property_value': ['http://purl.org/dc/elements/1.1/date 2018-02-05T16:22:49Z xsd:dateTime'], 'name': 'Eyelid retraction', 'is_a': ['HP:0000492'], 'created_by': 'ORCID:0000-0001-7941-2961'}
 
 frequency_score ={
-    'Very rare (<4-1%)':4,
+    'Very rare (<4-1%)':2,
     'Occasional (29-5%)':18,
     'Frequent (79-30%)':55,
     'Very frequent (99-80%)':90,
