@@ -1,4 +1,4 @@
-# OBO Parser
+import json
 import networkx
 import obonet
 
@@ -25,5 +25,44 @@ def get_successors(id):
     result = []
     for x in succs:
         result.append(x)
-    return result
+    return (result)
 
+def reverse_graph():
+    return graph.reverse
+
+def remove_node(id):
+    graph.remove_node(id)
+
+# Categories for the first 25 questions / checkmarks
+categories = {
+    "cat1": {
+        "Id" : "HP:0001871",
+        "Name" : "Abnormality of blood and blood-forming tissues",
+        "Def" : "Abnormality of organs that are involved in the production of blood, primarily the bone marrow, spleen, tonsils, and lymph nodes." }
+    "cat2": {
+        "Id" : "HP:0003549",
+        "Name" : "Abnormality of connective tissue",
+        "Def" : "Any abnormality of the soft tissues, including both connective tissue (tendons, ligaments, fascia, fibrous tissues, and fat)" }
+    "cat3": {
+        "Id" : "HP:0000152",
+        "Name" : "Abnormality of head or neck",
+        "Def" : "An abnormality of head and neck" }
+    "cat4": {
+        "Id" : "HP:0040064",
+        "Name" : "Abnormality of limbs",
+        "Def" : "Dysmelia, limb anomaly" }
+    "cat5": {
+        "Id" : "HP:0001939",
+        "Name" : "Abnormality of metabolism/homeostasis",
+        "Def" : "Metabolism abnormality" }
+    "cat6":
+
+    
+}
+
+def main():
+    remove_node('HP:0000014')
+    print (get_successors('HP:0000009'))
+
+if __name__== "__main__":
+  main()
