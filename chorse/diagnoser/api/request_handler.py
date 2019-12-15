@@ -1,6 +1,6 @@
 
 from diagnoser.data.ontology_data import get_symptom_by_id
-from diagnoser.data.ontology_data import get_predecessors_by_id
+from diagnoser.data.ontology_data import get_successors
 from diagnoser.data.HPO_data import get_disorder_oncology_dict
 
 
@@ -22,21 +22,25 @@ def get_question(symptoms):
     symptoms_question = []
     id2id_name = lambda x : {'symptom_id':x , 'name':get_symptom_by_id(x)['name']}
     for i in symptoms:
-        predec = get_predecessors_by_id(i['symptom_id'])
-        symptoms_question += list(map(predec))
+        predec = get_successors(i['symptom_id'])
+        symptoms_question += list(map(id2id_name,predec))
     return symptoms_question
 
 def get_symptoms(symptoms):
     symptoms_answer = []
-    print(f"symptoms :{symptoms}")
+    #print(f"symptoms :{symptoms}")
     id2id_name = lambda x : {'symptom_id':x , 'name':get_symptom_by_id(x)['name']}
     for symptom in symptoms:
-        print(f"symptom :{symptom}")
+        #print(f"symptom :{symptom}")
+        if 'synonym' in symptom  or 'synonym' in symptom:
+            synonyms = symptom['synonym'] if 'synonym' in symptom  else symptom['synonyms']
+        else:
+            synonyms = []
         symptoms_answer.append({
             'symptom_id': id,
-            'def':symptom['def'],
+            'def': symptom['def'] if 'def' in symptom else None,
             'name':symptom['name'],
-            'synonyms':symptom['synonym'] if 'synonym' in symptom else symptom['synonyms'],
+            'synonyms': synonyms,
             'similar_symptoms':list(map(id2id_name,symptom['is_a'])) if 'is_a' in symptom else None
         })
     return symptoms_answer

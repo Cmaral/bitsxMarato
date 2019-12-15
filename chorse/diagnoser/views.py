@@ -24,6 +24,7 @@ def index(request):
     params = { 'symptoms' : symptom_ids }
     context = handle_params(params)
 
+    print(context)
     #quest =  Question("1", "def", "nombre")
     #context = {}
     #return HttpResponse(context)
