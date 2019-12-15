@@ -1,5 +1,6 @@
 
 from diagnoser.data.ontology_data import get_symptom_by_id
+from diagnoser.data.ontology_data import get_predecessors_by_id
 from diagnoser.data.HPO_data import get_disorder_oncology_dict
 
 
