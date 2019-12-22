@@ -18,6 +18,7 @@ from django.urls import path,include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    re_path(r'.*', views.default),
     path('diagnoser/', include('diagnoser.urls')),
 
 ]
