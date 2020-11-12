@@ -1,11 +1,3 @@
 # bitsxMarato
 
-## chfire
-
-## chwater
-
-## chearth
-
-## chair
-
-## chorse
+Hackthon project themed around finding solutions that will help patients with rare illnesses.
